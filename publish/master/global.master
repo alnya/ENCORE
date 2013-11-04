@@ -1,0 +1,56 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" Inherits="master_global" Codebehind="global.master.cs" %>
+<%@ Register Src="~/controls/PrimaryNavigation.ascx" TagName="Navigation" TagPrefix="encore" %>
+<%@ Register Src="~/controls/Breadcrumb.ascx" TagName="Breadcrumb" TagPrefix="encore" %>
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head id="Head1" runat="server">
+    <title></title>
+    <style type="text/css" media="screen, projection"> 
+		@import "/encore/css/sitespecific.css";
+		@import "/encore/css/flexigrid.css";
+		@import "/encore/css/jquery.toastmessage.css";
+		@import "/encore/css/cupertino/jquery.ui.css";
+	</style> 
+   <script type="text/javascript" src="/encore/js/jquery-1.4.1.min.js"></script>
+   <script type="text/javascript" src="/encore/js/flexigrid.js"></script>
+   <script type="text/javascript" src="/encore/js/jquery.toastmessage.js"></script>
+   <script type="text/javascript" src="/encore/js/jquery.keyfilter.js"></script>
+   <script type="text/javascript" src="/encore/js/jquery.pager.js"></script>
+   <script type="text/javascript" src="/encore/js/jquery-ui-1.8.16.custom.min.js"></script>
+   <script type="text/javascript" src="/encore/js/jquery.DOMWindow.js"></script>
+   <script type="text/javascript" src="/encore/js/sitespecific.js"></script>
+</head>
+<body>
+    <form id="form1" runat="server">
+        <div id="header" class="clearfix">
+            <div class="container">
+                <asp:HyperLink NavigateUrl="~/" id="logo" runat="server">ENCORE</asp:HyperLink>
+                <span id="strapline">Environment and Climate interactions - Observations and Responses in Ecosystems</span>
+                <asp:HyperLink runat="server" ID="lnkLogout" Visible="false" NavigateUrl="~/Default.aspx?logout=y">Logout</asp:HyperLink>
+            </div>
+        </div>    
+             <div id="content" class="clearfix">
+                <div class="container">
+                    <encore:Navigation ID="PrimaryNavigation" runat="server" />
+                    <asp:ContentPlaceHolder ID="MainContent" runat="server" />
+                </div>
+            </div>
+            <div id="footer" class="clearfix">
+                <div class="container">
+                    <div class="column leftcol">
+                        <span class="disclaimer">© 2011 ENCORE</span>
+                    </div>
+                    <div class="column rightcol">
+                        <ul id="footernav">
+                            <li><a href="#">About us</a></li>
+                            <li><a href="#">Contact us</a></li>
+                            <li><a href="#">Sitemap</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</body>
+</html>

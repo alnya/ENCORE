@@ -1,0 +1,12 @@
+﻿<%@ Master Language="C#" MasterPageFile="~/master/global.master" AutoEventWireup="true" CodeFile="twocolumn.master.cs" 
+Inherits="master_twocolumns" %>
+<%@ MasterType virtualpath="~/master/global.master" %>
+<asp:Content ID="changePasswordContent" ContentPlaceHolderID="MainContent" runat="server">
+    <div class="column leftcol">
+        <h1><asp:Literal ID="litTitle" runat="server" /></h1>
+        <asp:ContentPlaceHolder ID="MainContent" runat="server" />
+    </div>
+    <div class="column rightcol">
+        <asp:ContentPlaceHolder ID="SupportingContent" runat="server" />
+    </div>
+</asp:Content>

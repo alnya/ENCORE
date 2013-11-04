@@ -1,0 +1,1 @@
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="AJAXTools.aspx.cs" Inherits="encore.web.report.AJAXTools" %>

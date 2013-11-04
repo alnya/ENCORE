@@ -1,0 +1,935 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="1.0" xmlns:edmx="http://schemas.microsoft.com/ado/2007/06/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="com.Encore.Entities.Store" Alias="Self" Provider="Oracle.DataAccess.Client" ProviderManifestToken="10.2" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2006/04/edm/ssdl">
+        <EntityContainer Name="comEncoreEntitiesStoreContainer">
+          <EntitySet Name="AUDITLOG" EntityType="com.Encore.Entities.Store.AUDITLOG" store:Type="Tables" Schema="ENCORE" />
+          <EntitySet Name="FIELD" EntityType="com.Encore.Entities.Store.FIELD" store:Type="Tables" Schema="ENCORE" />
+          <EntitySet Name="FIELDGROUP" EntityType="com.Encore.Entities.Store.FIELDGROUP" store:Type="Tables" Schema="ENCORE" />
+          <EntitySet Name="FIELDGROUPFIELD" EntityType="com.Encore.Entities.Store.FIELDGROUPFIELD" store:Type="Tables" Schema="ENCORE" />
+          <EntitySet Name="PROJECT" EntityType="com.Encore.Entities.Store.PROJECT" store:Type="Tables" Schema="ENCORE" />
+          <EntitySet Name="PROJECTFIELD" EntityType="com.Encore.Entities.Store.PROJECTFIELD" store:Type="Tables" Schema="ENCORE" />
+          <EntitySet Name="PROJECTSITE" EntityType="com.Encore.Entities.Store.PROJECTSITE" store:Type="Tables" Schema="ENCORE" />
+          <EntitySet Name="PROJECTSITESUMMARY" EntityType="com.Encore.Entities.Store.PROJECTSITESUMMARY" store:Type="Tables" Schema="ENCORE" />
+          <EntitySet Name="REPORT" EntityType="com.Encore.Entities.Store.REPORT" store:Type="Tables" Schema="ENCORE" />
+          <EntitySet Name="REPORTFIELD" EntityType="com.Encore.Entities.Store.REPORTFIELD" store:Type="Tables" Schema="ENCORE" />
+          <EntitySet Name="REPORTPROJECTREQUEST" EntityType="com.Encore.Entities.Store.REPORTPROJECTREQUEST" store:Type="Tables" Schema="ENCORE" />
+          <EntitySet Name="REPORTSITE" EntityType="com.Encore.Entities.Store.REPORTSITE" store:Type="Tables" Schema="ENCORE" />
+          <EntitySet Name="SITE" EntityType="com.Encore.Entities.Store.SITE" store:Type="Tables" Schema="ENCORE" />
+          <EntitySet Name="SITECONTACT" EntityType="com.Encore.Entities.Store.SITECONTACT" store:Type="Tables" Schema="ENCORE" />
+          <EntitySet Name="SITETYPE" EntityType="com.Encore.Entities.Store.SITETYPE" store:Type="Tables" Schema="ENCORE" />
+          <EntitySet Name="SYSTEMUSER" EntityType="com.Encore.Entities.Store.SYSTEMUSER" store:Type="Tables" Schema="ENCORE" />
+          <EntitySet Name="UNIT" EntityType="com.Encore.Entities.Store.UNIT" store:Type="Tables" Schema="ENCORE" />
+          <EntitySet Name="VWFIELDGROUPFIELD" EntityType="com.Encore.Entities.Store.VWFIELDGROUPFIELD" store:Type="Views" Schema="ENCORE" />
+          <EntitySet Name="VWFIELDUNIT" EntityType="com.Encore.Entities.Store.VWFIELDUNIT" store:Type="Views" Schema="ENCORE" />
+          <EntitySet Name="VWREPORTFIELD" EntityType="com.Encore.Entities.Store.VWREPORTFIELD" store:Type="Views" Schema="ENCORE" />
+          <EntitySet Name="VWREPORTSITE" EntityType="com.Encore.Entities.Store.VWREPORTSITE" store:Type="Views" Schema="ENCORE" />
+          <EntitySet Name="VWREPORTSITEFIELDSUMMARY" EntityType="com.Encore.Entities.Store.VWREPORTSITEFIELDSUMMARY" store:Type="Views" Schema="ENCORE" />
+        </EntityContainer>
+        <EntityType Name="AUDITLOG">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="number" Nullable="false" />
+          <Property Name="AUDITTYPE" Type="varchar2" Nullable="false" MaxLength="200" />
+          <Property Name="SOURCE" Type="varchar2" Nullable="false" MaxLength="200" />
+          <Property Name="DESCRIPTION" Type="varchar2" />
+          <Property Name="SYSTEMUSERID" Type="number" Nullable="false" />
+          <Property Name="URL" Type="varchar2" MaxLength="500" />
+          <Property Name="CREATEDON" Type="date" Nullable="false" />
+          <Property Name="DELETED" Type="number" Nullable="false" Precision="1" />
+        </EntityType>
+        <!--Errors Found During Generation:
+      warning 6002: The table/view 'ENCORE.BIN$ci1x3CJwRgWb22O9xGBDOw==$0' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
+      -->
+        <EntityType Name="FIELD">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="number" Nullable="false" Precision="5" />
+          <Property Name="NAME" Type="varchar2" Nullable="false" MaxLength="500" />
+          <Property Name="UNITID" Type="number" Nullable="false" Precision="5" />
+          <Property Name="DESCRIPTION" Type="varchar2" />
+          <Property Name="CREATEDON" Type="date" Nullable="false" />
+          <Property Name="MODIFIEDON" Type="date" Nullable="false" />
+        </EntityType>
+        <EntityType Name="FIELDGROUP">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="number" Nullable="false" Precision="5" />
+          <Property Name="NAME" Type="varchar2" MaxLength="500" />
+          <Property Name="CREATEDON" Type="date" Nullable="false" />
+          <Property Name="MODIFIEDON" Type="date" Nullable="false" />
+          <Property Name="DELETED" Type="number" Nullable="false" Precision="1" />
+        </EntityType>
+        <EntityType Name="FIELDGROUPFIELD">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="number" Nullable="false" Precision="5" />
+          <Property Name="FIELDGROUPID" Type="number" Precision="5" />
+          <Property Name="FIELDID" Type="number" Precision="5" />
+        </EntityType>
+        <EntityType Name="PROJECT">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="number" Nullable="false" Precision="5" />
+          <Property Name="NAME" Type="varchar2" Nullable="false" MaxLength="256" />
+          <Property Name="DESCRIPTION" Type="varchar2" />
+          <Property Name="APIURL" Type="varchar2" MaxLength="256" />
+          <Property Name="LASTAPIHIT" Type="date" />
+          <Property Name="CREATEDON" Type="date" Nullable="false" />
+          <Property Name="MODIFIEDON" Type="date" />
+          <Property Name="DELETED" Type="number" Nullable="false" Precision="1" />
+          <Property Name="SYSTEMUSERID" Type="number" Nullable="false" Precision="5" />
+          <Property Name="TERMS" Type="varchar2" />
+        </EntityType>
+        <EntityType Name="PROJECTFIELD">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="number" Nullable="false" Precision="5" />
+          <Property Name="PROJECTID" Type="number" Nullable="false" Precision="5" />
+          <Property Name="FIELDID" Type="number" Precision="5" />
+          <Property Name="NAME" Type="varchar2" Nullable="false" MaxLength="500" />
+          <Property Name="UNIT" Type="varchar2" MaxLength="200" />
+          <Property Name="DESCRIPTION" Type="varchar2" />
+          <Property Name="CREATEDON" Type="date" Nullable="false" />
+          <Property Name="DELETED" Type="number" Nullable="false" Precision="1" />
+          <Property Name="SOURCEID" Type="varchar2" MaxLength="20" />
+        </EntityType>
+        <EntityType Name="PROJECTSITE">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="number" Nullable="false" Precision="5" />
+          <Property Name="PROJECTID" Type="number" Nullable="false" Precision="5" />
+          <Property Name="SITEID" Type="number" Precision="5" />
+          <Property Name="NAME" Type="varchar2" Nullable="false" MaxLength="500" />
+          <Property Name="DESCRIPTION" Type="varchar2" />
+          <Property Name="LATITUDE" Type="number" Precision="10" Scale="5" />
+          <Property Name="LONGITUDE" Type="number" Precision="10" Scale="5" />
+          <Property Name="CREATEDON" Type="date" Nullable="false" />
+          <Property Name="DELETED" Type="number" Nullable="false" Precision="1" />
+          <Property Name="SOURCEID" Type="varchar2" MaxLength="20" />
+        </EntityType>
+        <EntityType Name="PROJECTSITESUMMARY">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="number" Nullable="false" Precision="5" />
+          <Property Name="PROJECTID" Type="number" Nullable="false" Precision="5" />
+          <Property Name="SITEID" Type="number" Nullable="false" Precision="5" />
+          <Property Name="FIELDID" Type="number" Nullable="false" Precision="5" />
+          <Property Name="ROWCOUNT" Type="number" Nullable="false" Precision="5" />
+          <Property Name="VALUEMINDATE" Type="date" />
+          <Property Name="VALUEMAXDATE" Type="date" />
+          <Property Name="CREATEDON" Type="date" Nullable="false" />
+          <Property Name="MODIFIEDON" Type="date" Nullable="false" />
+        </EntityType>
+        <EntityType Name="REPORT">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="number" Nullable="false" Precision="5" />
+          <Property Name="NAME" Type="varchar2" Nullable="false" MaxLength="500" />
+          <Property Name="REQUESTSTATUS" Type="varchar2" MaxLength="20" />
+          <Property Name="LASTDATAREQUESTDATE" Type="date" />
+          <Property Name="CREATEDON" Type="date" Nullable="false" />
+          <Property Name="DELETED" Type="number" Nullable="false" Precision="1" />
+          <Property Name="MODIFIEDON" Type="date" Nullable="false" />
+          <Property Name="SYSTEMUSERID" Type="number" Nullable="false" Precision="5" />
+          <Property Name="REPORTDATEFROM" Type="date" Nullable="false" />
+          <Property Name="REPORTDATETO" Type="date" Nullable="false" />
+        </EntityType>
+        <EntityType Name="REPORTFIELD">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="number" Nullable="false" Precision="5" />
+          <Property Name="REPORTID" Type="number" Nullable="false" Precision="5" />
+          <Property Name="FIELDID" Type="number" Nullable="false" Precision="5" />
+          <Property Name="FIELDORDER" Type="number" Precision="5" />
+          <Property Name="ALIAS" Type="varchar2" MaxLength="500" />
+          <Property Name="FILTEROPERATOR" Type="varchar2" MaxLength="20" />
+          <Property Name="FILTERVALUE" Type="varchar2" MaxLength="500" />
+          <Property Name="FILTERFIELDID" Type="number" Precision="5" />
+        </EntityType>
+        <EntityType Name="REPORTPROJECTREQUEST">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="number" Nullable="false" Precision="5" />
+          <Property Name="REPORTID" Type="number" Nullable="false" Precision="5" />
+          <Property Name="PROJECTID" Type="number" Nullable="false" Precision="5" />
+          <Property Name="STATUS" Type="varchar2" Nullable="false" MaxLength="20" />
+          <Property Name="CREATEDON" Type="date" Nullable="false" />
+        </EntityType>
+        <EntityType Name="REPORTSITE">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="number" Nullable="false" Precision="5" />
+          <Property Name="REPORTID" Type="number" Nullable="false" Precision="5" />
+          <Property Name="SITEID" Type="number" Nullable="false" Precision="5" />
+        </EntityType>
+        <EntityType Name="SITE">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="number" Nullable="false" Precision="5" />
+          <Property Name="NAME" Type="varchar2" Nullable="false" MaxLength="256" />
+          <Property Name="DESCRIPTION" Type="varchar2" />
+          <Property Name="CREATEDON" Type="date" Nullable="false" />
+          <Property Name="MODIFIEDON" Type="date" Nullable="false" />
+          <Property Name="DELETED" Type="number" Nullable="false" Precision="1" />
+          <Property Name="LATITUDE" Type="number" Precision="10" Scale="5" />
+          <Property Name="LONGITUDE" Type="number" Precision="10" Scale="5" />
+          <Property Name="GMTOFFSET" Type="number" Precision="5" />
+          <Property Name="COUNTRY" Type="varchar2" MaxLength="200" />
+          <Property Name="ELEVATION" Type="varchar2" MaxLength="200" />
+          <Property Name="SITETYPEID" Type="number" Precision="5" />
+        </EntityType>
+        <EntityType Name="SITECONTACT">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="number" Nullable="false" Precision="5" />
+          <Property Name="SITEID" Type="number" Precision="5" />
+          <Property Name="SYSTEMUSERID" Type="number" Nullable="false" Precision="5" />
+          <Property Name="DELETED" Type="number" Nullable="false" Precision="1" />
+          <Property Name="CREATEDON" Type="date" Nullable="false" />
+          <Property Name="MODIFIEDON" Type="date" Nullable="false" />
+        </EntityType>
+        <EntityType Name="SITETYPE">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="number" Nullable="false" Precision="5" />
+          <Property Name="NAME" Type="varchar2" Nullable="false" MaxLength="200" />
+        </EntityType>
+        <EntityType Name="SYSTEMUSER">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="number" Nullable="false" Precision="5" />
+          <Property Name="NAME" Type="varchar2" Nullable="false" MaxLength="500" />
+          <Property Name="EMAIL" Type="varchar2" Nullable="false" MaxLength="500" />
+          <Property Name="PASSWORD" Type="varchar2" Nullable="false" MaxLength="256" />
+          <Property Name="CREATEDON" Type="date" Nullable="false" />
+          <Property Name="MODIFIEDON" Type="date" Nullable="false" />
+          <Property Name="DELETED" Type="number" Nullable="false" Precision="1" />
+          <Property Name="LASTLOGGEDON" Type="date" Nullable="false" />
+          <Property Name="ADMINISTRATOR" Type="number" Nullable="false" Precision="1" />
+          <Property Name="ORGANISATION" Type="varchar2" MaxLength="2000" />
+          <Property Name="ORGANISATIONURL" Type="varchar2" MaxLength="2000" />
+          <Property Name="COUNTRY" Type="varchar2" MaxLength="256" />
+          <Property Name="AREAOFRESEARCH" Type="varchar2" />
+          <Property Name="URL" Type="varchar2" MaxLength="500" />
+          <Property Name="TWITTER" Type="varchar2" MaxLength="500" />
+          <Property Name="FACEBOOK" Type="varchar2" MaxLength="500" />
+          <Property Name="LINKEDIN" Type="varchar2" MaxLength="500" />
+        </EntityType>
+        <EntityType Name="UNIT">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="number" Nullable="false" Precision="5" />
+          <Property Name="NAME" Type="varchar2" Nullable="false" MaxLength="200" />
+          <Property Name="DATATYPE" Type="varchar2" Nullable="false" MaxLength="200" />
+          <Property Name="DESCRIPTION" Type="varchar2" MaxLength="2000" />
+        </EntityType>
+        <EntityType Name="VWFIELDGROUPFIELD">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="number" Nullable="false" Precision="5" />
+          <Property Name="FIELDGROUPID" Type="number" Precision="5" />
+          <Property Name="NAME" Type="varchar2" MaxLength="703" />
+        </EntityType>
+        <EntityType Name="VWFIELDUNIT">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="number" Nullable="false" Precision="5" />
+          <Property Name="NAME" Type="varchar2" Nullable="false" MaxLength="500" />
+          <Property Name="UNITID" Type="number" Nullable="false" Precision="5" />
+          <Property Name="UNITNAME" Type="varchar2" Nullable="false" MaxLength="200" />
+          <Property Name="DATATYPE" Type="varchar2" Nullable="false" MaxLength="200" />
+          <Property Name="DESCRIPTION" Type="varchar2" />
+        </EntityType>
+        <EntityType Name="VWREPORTFIELD">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="number" Nullable="false" Precision="5" />
+          <Property Name="REPORTID" Type="number" Nullable="false" Precision="5" />
+          <Property Name="FIELDORDER" Type="number" Precision="5" />
+          <Property Name="NAME" Type="varchar2" MaxLength="703" />
+        </EntityType>
+        <EntityType Name="VWREPORTSITE">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="number" Nullable="false" Precision="5" />
+          <Property Name="REPORTID" Type="number" Nullable="false" Precision="5" />
+          <Property Name="NAME" Type="varchar2" Nullable="false" MaxLength="256" />
+        </EntityType>
+        <EntityType Name="VWREPORTSITEFIELDSUMMARY">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="number" Nullable="false" Precision="5" />
+          <Property Name="SITEID" Type="number" Precision="5" />
+          <Property Name="FIELDID" Type="number" Precision="5" />
+          <Property Name="ROWCOUNT" Type="number" Precision="5" />
+          <Property Name="VALUEMAXDATE" Type="date" />
+          <Property Name="VALUEMINDATE" Type="date" />
+        </EntityType>
+        <Function Name="SPCLEARFIELDGROUPFIELDS" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="ENCORE">
+          <Parameter Name="GROUP_ID" Type="number" Mode="In" />
+        </Function>
+        <Function Name="SPCLEARREPORTFIELDS" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="ENCORE">
+          <Parameter Name="REPORT_ID" Type="number" Mode="In" />
+        </Function>
+        <Function Name="SPCLEARREPORTSITES" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="ENCORE">
+          <Parameter Name="REPORT_ID" Type="number" Mode="In" />
+        </Function>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="com.Encore.Entities" Alias="Self" xmlns="http://schemas.microsoft.com/ado/2006/04/edm">
+        <EntityContainer Name="Entities">
+          <EntitySet Name="AUDITLOGs" EntityType="com.Encore.Entities.AUDITLOG" />
+          <EntitySet Name="FIELDGROUPs" EntityType="com.Encore.Entities.FIELDGROUP" />
+          <EntitySet Name="FIELDGROUPFIELDs" EntityType="com.Encore.Entities.FIELDGROUPFIELD" />
+          <EntitySet Name="PROJECTs" EntityType="com.Encore.Entities.PROJECT" />
+          <EntitySet Name="PROJECTFIELDs" EntityType="com.Encore.Entities.PROJECTFIELD" />
+          <EntitySet Name="PROJECTSITEs" EntityType="com.Encore.Entities.PROJECTSITE" />
+          <EntitySet Name="PROJECTSITESUMMARies" EntityType="com.Encore.Entities.PROJECTSITESUMMARY" />
+          <EntitySet Name="REPORTs" EntityType="com.Encore.Entities.REPORT" />
+          <EntitySet Name="REPORTFIELDs" EntityType="com.Encore.Entities.REPORTFIELD" />
+          <EntitySet Name="REPORTPROJECTREQUESTs" EntityType="com.Encore.Entities.REPORTPROJECTREQUEST" />
+          <EntitySet Name="REPORTSITEs" EntityType="com.Encore.Entities.REPORTSITE" />
+          <EntitySet Name="SITECONTACTs" EntityType="com.Encore.Entities.SITECONTACT" />
+          <EntitySet Name="SYSTEMUSERs" EntityType="com.Encore.Entities.SYSTEMUSER" />
+          <EntitySet Name="FIELDs" EntityType="com.Encore.Entities.FIELD" />
+          <EntitySet Name="VWFIELDUNITs" EntityType="com.Encore.Entities.VWFIELDUNIT" />
+          <EntitySet Name="VWFIELDGROUPFIELDs" EntityType="com.Encore.Entities.VWFIELDGROUPFIELD" />
+          <EntitySet Name="VWREPORTFIELDs" EntityType="com.Encore.Entities.VWREPORTFIELD" />
+          <EntitySet Name="VWREPORTSITEs" EntityType="com.Encore.Entities.VWREPORTSITE" />
+          <FunctionImport Name="ClearGroupFields">
+          <Parameter Name="GROUP_ID" Mode="In" Type="Decimal" />
+          </FunctionImport>
+          <FunctionImport Name="ClearReportFields">
+          <Parameter Name="REPORT_ID" Mode="In" Type="Decimal" />
+          </FunctionImport>
+          <FunctionImport Name="ClearReportSites">
+          <Parameter Name="REPORT_ID" Mode="In" Type="Decimal" />
+          </FunctionImport>
+          <EntitySet Name="UNITs" EntityType="com.Encore.Entities.UNIT" />
+          <EntitySet Name="SITEs" EntityType="com.Encore.Entities.SITE" />
+          <EntitySet Name="SITETYPEs" EntityType="com.Encore.Entities.SITETYPE" />
+          <EntitySet Name="VWREPORTSITEFIELDSUMMARies" EntityType="com.Encore.Entities.VWREPORTSITEFIELDSUMMARY" />
+        </EntityContainer>
+        <EntityType Name="AUDITLOG">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Type="Decimal" Name="ID" Nullable="false" Precision="38" Scale="0" />
+          <Property Type="String" Name="AUDITTYPE" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="SOURCE" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="DESCRIPTION" MaxLength="4000" FixedLength="false" Unicode="false" />
+          <Property Type="Decimal" Name="SYSTEMUSERID" Nullable="false" Precision="38" Scale="0" />
+          <Property Type="String" Name="URL" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Type="DateTime" Name="CREATEDON" Nullable="false" />
+          <Property Type="Int16" Name="DELETED" Nullable="false" />
+        </EntityType>
+        <EntityType Name="FIELDGROUP">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Type="Int16" Name="ID" Nullable="false" />
+          <Property Type="String" Name="NAME" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Type="DateTime" Name="CREATEDON" Nullable="false" />
+          <Property Type="DateTime" Name="MODIFIEDON" Nullable="false" />
+          <Property Type="Int16" Name="DELETED" Nullable="false" />
+        </EntityType>
+        <EntityType Name="FIELDGROUPFIELD">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Type="Int16" Name="ID" Nullable="false" />
+          <Property Type="Int16" Name="FIELDGROUPID" />
+          <Property Type="Int16" Name="FIELDID" />
+        </EntityType>
+        <EntityType Name="PROJECT">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Type="Int16" Name="ID" Nullable="false" />
+          <Property Type="String" Name="NAME" Nullable="false" MaxLength="256" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="DESCRIPTION" MaxLength="4000" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="APIURL" MaxLength="256" FixedLength="false" Unicode="false" />
+          <Property Type="DateTime" Name="LASTAPIHIT" />
+          <Property Type="DateTime" Name="CREATEDON" Nullable="false" />
+          <Property Type="DateTime" Name="MODIFIEDON" />
+          <Property Type="Int16" Name="DELETED" Nullable="false" />
+          <Property Type="Int16" Name="SYSTEMUSERID" Nullable="false" />
+          <Property Type="String" Name="TERMS" MaxLength="4000" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="PROJECTFIELD">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Type="Int16" Name="ID" Nullable="false" />
+          <Property Type="Int16" Name="PROJECTID" Nullable="false" />
+          <Property Type="Int16" Name="FIELDID" />
+          <Property Type="String" Name="NAME" Nullable="false" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="UNIT" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="DESCRIPTION" MaxLength="4000" FixedLength="false" Unicode="false" />
+          <Property Type="DateTime" Name="CREATEDON" Nullable="false" />
+          <Property Type="Int16" Name="DELETED" Nullable="false" />
+          <Property Type="String" Name="SOURCEID" MaxLength="20" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="PROJECTSITE">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Type="Int16" Name="ID" Nullable="false" />
+          <Property Type="Int16" Name="PROJECTID" Nullable="false" />
+          <Property Type="Int16" Name="SITEID" />
+          <Property Type="String" Name="NAME" Nullable="false" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="DESCRIPTION" MaxLength="4000" FixedLength="false" Unicode="false" />
+          <Property Type="Decimal" Name="LATITUDE" Precision="10" Scale="5" />
+          <Property Type="Decimal" Name="LONGITUDE" Precision="10" Scale="5" />
+          <Property Type="DateTime" Name="CREATEDON" Nullable="false" />
+          <Property Type="Int16" Name="DELETED" Nullable="false" />
+          <Property Type="String" Name="SOURCEID" MaxLength="20" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="PROJECTSITESUMMARY">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Type="Int16" Name="ID" Nullable="false" />
+          <Property Type="Int16" Name="PROJECTID" Nullable="false" />
+          <Property Type="Int16" Name="SITEID" Nullable="false" />
+          <Property Type="Int16" Name="FIELDID" Nullable="false" />
+          <Property Type="Int16" Name="ROWCOUNT" Nullable="false" />
+          <Property Type="DateTime" Name="VALUEMINDATE" />
+          <Property Type="DateTime" Name="VALUEMAXDATE" />
+          <Property Type="DateTime" Name="CREATEDON" Nullable="false" />
+          <Property Type="DateTime" Name="MODIFIEDON" Nullable="false" />
+        </EntityType>
+        <EntityType Name="REPORT">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Type="Int16" Name="ID" Nullable="false" />
+          <Property Type="String" Name="NAME" Nullable="false" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="REQUESTSTATUS" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Type="DateTime" Name="LASTDATAREQUESTDATE" />
+          <Property Type="DateTime" Name="CREATEDON" Nullable="false" />
+          <Property Type="Int16" Name="DELETED" Nullable="false" />
+          <Property Type="DateTime" Name="MODIFIEDON" Nullable="false" />
+          <Property Type="Int16" Name="SYSTEMUSERID" Nullable="false" />
+          <Property Type="DateTime" Name="REPORTDATEFROM" Nullable="false" />
+          <Property Type="DateTime" Name="REPORTDATETO" Nullable="false" />
+        </EntityType>
+        <EntityType Name="REPORTFIELD">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Type="Int16" Name="ID" Nullable="false" />
+          <Property Type="Int16" Name="REPORTID" Nullable="false" />
+          <Property Type="Int16" Name="FIELDID" Nullable="false" />
+          <Property Type="Int16" Name="FIELDORDER" />
+          <Property Type="String" Name="ALIAS" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="FILTEROPERATOR" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="FILTERVALUE" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Type="Int16" Name="FILTERFIELDID" />
+        </EntityType>
+        <EntityType Name="REPORTPROJECTREQUEST">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Type="Int16" Name="ID" Nullable="false" />
+          <Property Type="Int16" Name="REPORTID" Nullable="false" />
+          <Property Type="Int16" Name="PROJECTID" Nullable="false" />
+          <Property Type="String" Name="STATUS" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Type="DateTime" Name="CREATEDON" Nullable="false" />
+        </EntityType>
+        <EntityType Name="REPORTSITE">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Type="Int16" Name="ID" Nullable="false" />
+          <Property Type="Int16" Name="REPORTID" Nullable="false" />
+          <Property Type="Int16" Name="SITEID" Nullable="false" />
+        </EntityType>
+        <EntityType Name="SITECONTACT">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Type="Int16" Name="ID" Nullable="false" />
+          <Property Type="Int16" Name="SITEID" />
+          <Property Type="Int16" Name="SYSTEMUSERID" Nullable="false" />
+          <Property Type="Int16" Name="DELETED" Nullable="false" />
+          <Property Type="DateTime" Name="CREATEDON" Nullable="false" />
+          <Property Type="DateTime" Name="MODIFIEDON" Nullable="false" />
+        </EntityType>
+        <EntityType Name="SYSTEMUSER">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Type="Int16" Name="ID" Nullable="false" />
+          <Property Type="String" Name="NAME" Nullable="false" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="EMAIL" Nullable="false" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="PASSWORD" Nullable="false" MaxLength="256" FixedLength="false" Unicode="false" />
+          <Property Type="DateTime" Name="CREATEDON" Nullable="false" />
+          <Property Type="DateTime" Name="MODIFIEDON" Nullable="false" />
+          <Property Type="Int16" Name="DELETED" Nullable="false" />
+          <Property Type="DateTime" Name="LASTLOGGEDON" Nullable="false" />
+          <Property Type="Int16" Name="ADMINISTRATOR" Nullable="false" />
+          <Property Type="String" Name="ORGANISATION" MaxLength="2000" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="ORGANISATIONURL" MaxLength="2000" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="COUNTRY" MaxLength="256" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="AREAOFRESEARCH" MaxLength="4000" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="URL" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="TWITTER" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="FACEBOOK" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="LINKEDIN" MaxLength="500" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="FIELD">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Type="Int16" Name="ID" Nullable="false" />
+          <Property Type="String" Name="NAME" Nullable="false" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Type="Int16" Name="UNITID" Nullable="false" />
+          <Property Type="String" Name="DESCRIPTION" MaxLength="4000" FixedLength="false" Unicode="false" />
+          <Property Type="DateTime" Name="CREATEDON" Nullable="false" />
+          <Property Type="DateTime" Name="MODIFIEDON" Nullable="false" />
+        </EntityType>
+        <EntityType Name="VWFIELDUNIT">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Type="Int16" Name="ID" Nullable="false" />
+          <Property Type="String" Name="NAME" Nullable="false" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Type="Int16" Name="UNITID" Nullable="false" />
+          <Property Type="String" Name="UNITNAME" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="DATATYPE" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="DESCRIPTION" MaxLength="4000" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="VWFIELDGROUPFIELD">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Type="Int16" Name="ID" Nullable="false" />
+          <Property Type="Int16" Name="FIELDGROUPID" />
+          <Property Type="String" Name="NAME" Nullable="false" MaxLength="500" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="VWREPORTFIELD">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Type="Int16" Name="ID" Nullable="false" />
+          <Property Type="Int16" Name="REPORTID" Nullable="false" />
+          <Property Type="Int16" Name="FIELDORDER" />
+          <Property Type="String" Name="NAME" Nullable="false" MaxLength="500" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="VWREPORTSITE">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Type="Int16" Name="ID" Nullable="false" />
+          <Property Type="Int16" Name="REPORTID" Nullable="false" />
+          <Property Type="String" Name="NAME" Nullable="false" MaxLength="256" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="UNIT">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Type="Int16" Name="ID" Nullable="false" />
+          <Property Type="String" Name="NAME" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="DATATYPE" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="DESCRIPTION" MaxLength="2000" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="SITE">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Type="Int16" Name="ID" Nullable="false" />
+          <Property Type="String" Name="NAME" Nullable="false" MaxLength="256" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="DESCRIPTION" MaxLength="4000" FixedLength="false" Unicode="false" />
+          <Property Type="DateTime" Name="CREATEDON" Nullable="false" />
+          <Property Type="DateTime" Name="MODIFIEDON" Nullable="false" />
+          <Property Type="Int16" Name="DELETED" Nullable="false" />
+          <Property Type="Decimal" Name="LATITUDE" Precision="10" Scale="5" />
+          <Property Type="Decimal" Name="LONGITUDE" Precision="10" Scale="5" />
+          <Property Type="Int16" Name="GMTOFFSET" />
+          <Property Type="String" Name="COUNTRY" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="ELEVATION" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Type="Int16" Name="SITETYPEID" />
+        </EntityType>
+        <EntityType Name="SITETYPE">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Type="Int16" Name="ID" Nullable="false" />
+          <Property Type="String" Name="NAME" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="VWREPORTSITEFIELDSUMMARY">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Type="Int16" Name="ID" Nullable="false" />
+          <Property Type="Int16" Name="SITEID" />
+          <Property Type="Int16" Name="FIELDID" />
+          <Property Type="Int16" Name="ROWCOUNT" />
+          <Property Type="DateTime" Name="VALUEMAXDATE" />
+          <Property Type="DateTime" Name="VALUEMINDATE" />
+        </EntityType>
+        </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="urn:schemas-microsoft-com:windows:storage:mapping:CS">
+        <EntityContainerMapping StorageEntityContainer="comEncoreEntitiesStoreContainer" CdmEntityContainer="Entities">
+          <EntitySetMapping Name="AUDITLOGs">
+            <EntityTypeMapping TypeName="com.Encore.Entities.AUDITLOG">
+              <MappingFragment StoreEntitySet="AUDITLOG">
+                <ScalarProperty Name="DELETED" ColumnName="DELETED" />
+                <ScalarProperty Name="CREATEDON" ColumnName="CREATEDON" />
+                <ScalarProperty Name="URL" ColumnName="URL" />
+                <ScalarProperty Name="SYSTEMUSERID" ColumnName="SYSTEMUSERID" />
+                <ScalarProperty Name="DESCRIPTION" ColumnName="DESCRIPTION" />
+                <ScalarProperty Name="SOURCE" ColumnName="SOURCE" />
+                <ScalarProperty Name="AUDITTYPE" ColumnName="AUDITTYPE" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="FIELDGROUPs">
+            <EntityTypeMapping TypeName="com.Encore.Entities.FIELDGROUP">
+              <MappingFragment StoreEntitySet="FIELDGROUP">
+                <ScalarProperty Name="DELETED" ColumnName="DELETED" />
+                <ScalarProperty Name="MODIFIEDON" ColumnName="MODIFIEDON" />
+                <ScalarProperty Name="CREATEDON" ColumnName="CREATEDON" />
+                <ScalarProperty Name="NAME" ColumnName="NAME" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="FIELDGROUPFIELDs">
+            <EntityTypeMapping TypeName="com.Encore.Entities.FIELDGROUPFIELD">
+              <MappingFragment StoreEntitySet="FIELDGROUPFIELD">
+                <ScalarProperty Name="FIELDID" ColumnName="FIELDID" />
+                <ScalarProperty Name="FIELDGROUPID" ColumnName="FIELDGROUPID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PROJECTs">
+            <EntityTypeMapping TypeName="com.Encore.Entities.PROJECT">
+              <MappingFragment StoreEntitySet="PROJECT">
+                <ScalarProperty Name="TERMS" ColumnName="TERMS" />
+                <ScalarProperty Name="SYSTEMUSERID" ColumnName="SYSTEMUSERID" />
+                <ScalarProperty Name="DELETED" ColumnName="DELETED" />
+                <ScalarProperty Name="MODIFIEDON" ColumnName="MODIFIEDON" />
+                <ScalarProperty Name="CREATEDON" ColumnName="CREATEDON" />
+                <ScalarProperty Name="LASTAPIHIT" ColumnName="LASTAPIHIT" />
+                <ScalarProperty Name="APIURL" ColumnName="APIURL" />
+                <ScalarProperty Name="DESCRIPTION" ColumnName="DESCRIPTION" />
+                <ScalarProperty Name="NAME" ColumnName="NAME" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PROJECTFIELDs">
+            <EntityTypeMapping TypeName="com.Encore.Entities.PROJECTFIELD">
+              <MappingFragment StoreEntitySet="PROJECTFIELD">
+                <ScalarProperty Name="SOURCEID" ColumnName="SOURCEID" />
+                <ScalarProperty Name="DELETED" ColumnName="DELETED" />
+                <ScalarProperty Name="CREATEDON" ColumnName="CREATEDON" />
+                <ScalarProperty Name="DESCRIPTION" ColumnName="DESCRIPTION" />
+                <ScalarProperty Name="UNIT" ColumnName="UNIT" />
+                <ScalarProperty Name="NAME" ColumnName="NAME" />
+                <ScalarProperty Name="FIELDID" ColumnName="FIELDID" />
+                <ScalarProperty Name="PROJECTID" ColumnName="PROJECTID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PROJECTSITEs">
+            <EntityTypeMapping TypeName="com.Encore.Entities.PROJECTSITE">
+              <MappingFragment StoreEntitySet="PROJECTSITE">
+                <ScalarProperty Name="SOURCEID" ColumnName="SOURCEID" />
+                <ScalarProperty Name="DELETED" ColumnName="DELETED" />
+                <ScalarProperty Name="CREATEDON" ColumnName="CREATEDON" />
+                <ScalarProperty Name="LONGITUDE" ColumnName="LONGITUDE" />
+                <ScalarProperty Name="LATITUDE" ColumnName="LATITUDE" />
+                <ScalarProperty Name="DESCRIPTION" ColumnName="DESCRIPTION" />
+                <ScalarProperty Name="NAME" ColumnName="NAME" />
+                <ScalarProperty Name="SITEID" ColumnName="SITEID" />
+                <ScalarProperty Name="PROJECTID" ColumnName="PROJECTID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PROJECTSITESUMMARies">
+            <EntityTypeMapping TypeName="com.Encore.Entities.PROJECTSITESUMMARY">
+              <MappingFragment StoreEntitySet="PROJECTSITESUMMARY">
+                <ScalarProperty Name="MODIFIEDON" ColumnName="MODIFIEDON" />
+                <ScalarProperty Name="CREATEDON" ColumnName="CREATEDON" />
+                <ScalarProperty Name="VALUEMAXDATE" ColumnName="VALUEMAXDATE" />
+                <ScalarProperty Name="VALUEMINDATE" ColumnName="VALUEMINDATE" />
+                <ScalarProperty Name="ROWCOUNT" ColumnName="ROWCOUNT" />
+                <ScalarProperty Name="FIELDID" ColumnName="FIELDID" />
+                <ScalarProperty Name="SITEID" ColumnName="SITEID" />
+                <ScalarProperty Name="PROJECTID" ColumnName="PROJECTID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="REPORTs">
+            <EntityTypeMapping TypeName="com.Encore.Entities.REPORT">
+              <MappingFragment StoreEntitySet="REPORT">
+                <ScalarProperty Name="REPORTDATETO" ColumnName="REPORTDATETO" />
+                <ScalarProperty Name="REPORTDATEFROM" ColumnName="REPORTDATEFROM" />
+                <ScalarProperty Name="SYSTEMUSERID" ColumnName="SYSTEMUSERID" />
+                <ScalarProperty Name="MODIFIEDON" ColumnName="MODIFIEDON" />
+                <ScalarProperty Name="DELETED" ColumnName="DELETED" />
+                <ScalarProperty Name="CREATEDON" ColumnName="CREATEDON" />
+                <ScalarProperty Name="LASTDATAREQUESTDATE" ColumnName="LASTDATAREQUESTDATE" />
+                <ScalarProperty Name="REQUESTSTATUS" ColumnName="REQUESTSTATUS" />
+                <ScalarProperty Name="NAME" ColumnName="NAME" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="REPORTFIELDs">
+            <EntityTypeMapping TypeName="com.Encore.Entities.REPORTFIELD">
+              <MappingFragment StoreEntitySet="REPORTFIELD">
+                <ScalarProperty Name="FILTERFIELDID" ColumnName="FILTERFIELDID" />
+                <ScalarProperty Name="FILTERVALUE" ColumnName="FILTERVALUE" />
+                <ScalarProperty Name="FILTEROPERATOR" ColumnName="FILTEROPERATOR" />
+                <ScalarProperty Name="ALIAS" ColumnName="ALIAS" />
+                <ScalarProperty Name="FIELDORDER" ColumnName="FIELDORDER" />
+                <ScalarProperty Name="FIELDID" ColumnName="FIELDID" />
+                <ScalarProperty Name="REPORTID" ColumnName="REPORTID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="REPORTPROJECTREQUESTs">
+            <EntityTypeMapping TypeName="com.Encore.Entities.REPORTPROJECTREQUEST">
+              <MappingFragment StoreEntitySet="REPORTPROJECTREQUEST">
+                <ScalarProperty Name="CREATEDON" ColumnName="CREATEDON" />
+                <ScalarProperty Name="STATUS" ColumnName="STATUS" />
+                <ScalarProperty Name="PROJECTID" ColumnName="PROJECTID" />
+                <ScalarProperty Name="REPORTID" ColumnName="REPORTID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="REPORTSITEs">
+            <EntityTypeMapping TypeName="com.Encore.Entities.REPORTSITE">
+              <MappingFragment StoreEntitySet="REPORTSITE">
+                <ScalarProperty Name="SITEID" ColumnName="SITEID" />
+                <ScalarProperty Name="REPORTID" ColumnName="REPORTID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SITECONTACTs">
+            <EntityTypeMapping TypeName="com.Encore.Entities.SITECONTACT">
+              <MappingFragment StoreEntitySet="SITECONTACT">
+                <ScalarProperty Name="MODIFIEDON" ColumnName="MODIFIEDON" />
+                <ScalarProperty Name="CREATEDON" ColumnName="CREATEDON" />
+                <ScalarProperty Name="DELETED" ColumnName="DELETED" />
+                <ScalarProperty Name="SYSTEMUSERID" ColumnName="SYSTEMUSERID" />
+                <ScalarProperty Name="SITEID" ColumnName="SITEID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SYSTEMUSERs">
+            <EntityTypeMapping TypeName="com.Encore.Entities.SYSTEMUSER">
+              <MappingFragment StoreEntitySet="SYSTEMUSER">
+                <ScalarProperty Name="LINKEDIN" ColumnName="LINKEDIN" />
+                <ScalarProperty Name="FACEBOOK" ColumnName="FACEBOOK" />
+                <ScalarProperty Name="TWITTER" ColumnName="TWITTER" />
+                <ScalarProperty Name="URL" ColumnName="URL" />
+                <ScalarProperty Name="AREAOFRESEARCH" ColumnName="AREAOFRESEARCH" />
+                <ScalarProperty Name="COUNTRY" ColumnName="COUNTRY" />
+                <ScalarProperty Name="ORGANISATIONURL" ColumnName="ORGANISATIONURL" />
+                <ScalarProperty Name="ORGANISATION" ColumnName="ORGANISATION" />
+                <ScalarProperty Name="ADMINISTRATOR" ColumnName="ADMINISTRATOR" />
+                <ScalarProperty Name="LASTLOGGEDON" ColumnName="LASTLOGGEDON" />
+                <ScalarProperty Name="DELETED" ColumnName="DELETED" />
+                <ScalarProperty Name="MODIFIEDON" ColumnName="MODIFIEDON" />
+                <ScalarProperty Name="CREATEDON" ColumnName="CREATEDON" />
+                <ScalarProperty Name="PASSWORD" ColumnName="PASSWORD" />
+                <ScalarProperty Name="EMAIL" ColumnName="EMAIL" />
+                <ScalarProperty Name="NAME" ColumnName="NAME" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="FIELDs">
+            <EntityTypeMapping TypeName="com.Encore.Entities.FIELD">
+              <MappingFragment StoreEntitySet="FIELD">
+                <ScalarProperty Name="MODIFIEDON" ColumnName="MODIFIEDON" />
+                <ScalarProperty Name="CREATEDON" ColumnName="CREATEDON" />
+                <ScalarProperty Name="DESCRIPTION" ColumnName="DESCRIPTION" />
+                <ScalarProperty Name="UNITID" ColumnName="UNITID" />
+                <ScalarProperty Name="NAME" ColumnName="NAME" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="VWFIELDUNITs">
+            <EntityTypeMapping TypeName="com.Encore.Entities.VWFIELDUNIT">
+              <MappingFragment StoreEntitySet="VWFIELDUNIT">
+                <ScalarProperty Name="DESCRIPTION" ColumnName="DESCRIPTION" />
+                <ScalarProperty Name="DATATYPE" ColumnName="DATATYPE" />
+                <ScalarProperty Name="UNITNAME" ColumnName="UNITNAME" />
+                <ScalarProperty Name="UNITID" ColumnName="UNITID" />
+                <ScalarProperty Name="NAME" ColumnName="NAME" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="VWFIELDGROUPFIELDs">
+            <EntityTypeMapping TypeName="com.Encore.Entities.VWFIELDGROUPFIELD">
+              <MappingFragment StoreEntitySet="VWFIELDGROUPFIELD">
+                <ScalarProperty Name="NAME" ColumnName="NAME" />
+                <ScalarProperty Name="FIELDGROUPID" ColumnName="FIELDGROUPID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="VWREPORTFIELDs">
+            <EntityTypeMapping TypeName="com.Encore.Entities.VWREPORTFIELD">
+              <MappingFragment StoreEntitySet="VWREPORTFIELD">
+                <ScalarProperty Name="NAME" ColumnName="NAME" />
+                <ScalarProperty Name="FIELDORDER" ColumnName="FIELDORDER" />
+                <ScalarProperty Name="REPORTID" ColumnName="REPORTID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="VWREPORTSITEs">
+            <EntityTypeMapping TypeName="com.Encore.Entities.VWREPORTSITE">
+              <MappingFragment StoreEntitySet="VWREPORTSITE">
+                <ScalarProperty Name="NAME" ColumnName="NAME" />
+                <ScalarProperty Name="REPORTID" ColumnName="REPORTID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="ClearGroupFields" FunctionName="com.Encore.Entities.Store.SPCLEARFIELDGROUPFIELDS" />
+          <FunctionImportMapping FunctionImportName="ClearReportFields" FunctionName="com.Encore.Entities.Store.SPCLEARREPORTFIELDS" />
+          <FunctionImportMapping FunctionImportName="ClearReportSites" FunctionName="com.Encore.Entities.Store.SPCLEARREPORTSITES" />
+          <EntitySetMapping Name="UNITs">
+            <EntityTypeMapping TypeName="com.Encore.Entities.UNIT">
+              <MappingFragment StoreEntitySet="UNIT">
+                <ScalarProperty Name="DESCRIPTION" ColumnName="DESCRIPTION" />
+                <ScalarProperty Name="DATATYPE" ColumnName="DATATYPE" />
+                <ScalarProperty Name="NAME" ColumnName="NAME" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SITEs">
+            <EntityTypeMapping TypeName="com.Encore.Entities.SITE">
+              <MappingFragment StoreEntitySet="SITE">
+                <ScalarProperty Name="SITETYPEID" ColumnName="SITETYPEID" />
+                <ScalarProperty Name="ELEVATION" ColumnName="ELEVATION" />
+                <ScalarProperty Name="COUNTRY" ColumnName="COUNTRY" />
+                <ScalarProperty Name="GMTOFFSET" ColumnName="GMTOFFSET" />
+                <ScalarProperty Name="LONGITUDE" ColumnName="LONGITUDE" />
+                <ScalarProperty Name="LATITUDE" ColumnName="LATITUDE" />
+                <ScalarProperty Name="DELETED" ColumnName="DELETED" />
+                <ScalarProperty Name="MODIFIEDON" ColumnName="MODIFIEDON" />
+                <ScalarProperty Name="CREATEDON" ColumnName="CREATEDON" />
+                <ScalarProperty Name="DESCRIPTION" ColumnName="DESCRIPTION" />
+                <ScalarProperty Name="NAME" ColumnName="NAME" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SITETYPEs">
+            <EntityTypeMapping TypeName="com.Encore.Entities.SITETYPE">
+              <MappingFragment StoreEntitySet="SITETYPE">
+                <ScalarProperty Name="NAME" ColumnName="NAME" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="VWREPORTSITEFIELDSUMMARies">
+            <EntityTypeMapping TypeName="com.Encore.Entities.VWREPORTSITEFIELDSUMMARY">
+              <MappingFragment StoreEntitySet="VWREPORTSITEFIELDSUMMARY">
+                <ScalarProperty Name="VALUEMINDATE" ColumnName="VALUEMINDATE" />
+                <ScalarProperty Name="VALUEMAXDATE" ColumnName="VALUEMAXDATE" />
+                <ScalarProperty Name="ROWCOUNT" ColumnName="ROWCOUNT" />
+                <ScalarProperty Name="FIELDID" ColumnName="FIELDID" />
+                <ScalarProperty Name="SITEID" ColumnName="SITEID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2007/06/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="True" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="False" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams>
+      <Diagram Name="Encore" ZoomLevel="74">
+        <EntityTypeShape EntityType="com.Encore.Entities.AUDITLOG" Width="1.5" PointX="0.75" PointY="0.75" Height="2.5571907552083246" />
+        <EntityTypeShape EntityType="com.Encore.Entities.FIELDGROUP" Width="1.5" PointX="2.75" PointY="0.75" Height="1.9802864583333246" />
+        <EntityTypeShape EntityType="com.Encore.Entities.FIELDGROUPFIELD" Width="1.5" PointX="2.75" PointY="3.75" Height="1.5956835937500102" />
+        <EntityTypeShape EntityType="com.Encore.Entities.PROJECT" Width="1.5" PointX="4.75" PointY="0.75" Height="2.9417936197916674" />
+        <EntityTypeShape EntityType="com.Encore.Entities.PROJECTFIELD" Width="1.5" PointX="4.75" PointY="4.75" Height="2.5571907552083246" />
+        <EntityTypeShape EntityType="com.Encore.Entities.PROJECTSITE" Width="1.5" PointX="6.75" PointY="0.75" Height="2.7494921875000102" />
+        <EntityTypeShape EntityType="com.Encore.Entities.PROJECTSITESUMMARY" Width="1.5" PointX="0.75" PointY="6.75" Height="2.7494921875000102" />
+        <EntityTypeShape EntityType="com.Encore.Entities.REPORT" Width="1.5" PointX="6.75" PointY="4.75" Height="2.9417936197916674" />
+        <EntityTypeShape EntityType="com.Encore.Entities.REPORTFIELD" Width="1.5" PointX="8.75" PointY="0.75" Height="2.5571907552083246" />
+        <EntityTypeShape EntityType="com.Encore.Entities.REPORTPROJECTREQUEST" Width="1.5" PointX="2.75" PointY="8.75" Height="1.9802864583333246" />
+        <EntityTypeShape EntityType="com.Encore.Entities.REPORTSITE" Width="1.5" PointX="8.75" PointY="4.75" Height="1.5956835937499818" />
+        <EntityTypeShape EntityType="com.Encore.Entities.SITECONTACT" Width="1.5" PointX="6.75" PointY="8.75" Height="2.1725878906249818" />
+        <EntityTypeShape EntityType="com.Encore.Entities.SYSTEMUSER" Width="1.5" PointX="8.75" PointY="7.75" Height="4.2879036458333246" />
+        <EntityTypeShape EntityType="com.Encore.Entities.FIELD" Width="1.5" PointX="10.75" PointY="0.75" Height="2.1725878906250031" />
+        <EntityTypeShape EntityType="com.Encore.Entities.VWFIELDUNIT" Width="1.5" PointX="10.75" PointY="6.75" Height="2.1725878906250031" />
+        <EntityTypeShape EntityType="com.Encore.Entities.VWFIELDGROUPFIELD" Width="1.5" PointX="10.75" PointY="9.75" Height="1.5956835937500031" />
+        <EntityTypeShape EntityType="com.Encore.Entities.VWREPORTFIELD" Width="1.5" PointX="0.75" PointY="11.75" Height="1.7879850260416674" />
+        <EntityTypeShape EntityType="com.Encore.Entities.VWREPORTSITE" Width="1.5" PointX="12.75" PointY="0.75" Height="1.5956835937500031" />
+        <EntityTypeShape EntityType="com.Encore.Entities.UNIT" Width="1.5" PointX="3.375" PointY="12.75" Height="1.7879850260416674" />
+        <EntityTypeShape EntityType="com.Encore.Entities.SITE" Width="1.5" PointX="5.375" PointY="11.75" Height="3.3263964843750067" />
+        <EntityTypeShape EntityType="com.Encore.Entities.SITETYPE" Width="1.5" PointX="11.375" PointY="12.75" Height="1.4033821614583246" />
+        <EntityTypeShape EntityType="com.Encore.Entities.VWREPORTSITEFIELDSUMMARY" Width="1.5" PointX="11" PointY="3.75" Height="2.192587890625" />
+      </Diagram>
+    </Diagrams>
+  </Designer>
+</edmx:Edmx>
