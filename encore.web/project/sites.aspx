@@ -9,30 +9,32 @@
 <h1><asp:Literal ID="litTitle" runat="server" /></h1>
 <h2><asp:Literal ID="litProjectTitle" runat="server" /> </h2>
  <fieldset class="panel dataentry clearfix">
-    <h2 style="float:left; width:298px;"> Source Site</h2> <h2>Encore Site</h2>
-    <div class="panelscroll">
-        <asp:Repeater ID="rptMatch" runat="server" OnItemDataBound="rptMatch_ItemDataBound">
+        <asp:Repeater ID="rptMatch" runat="server">
             <HeaderTemplate>
-                <div class="pagedcontent">
+            <div class="mappingheader">
+                <h2><span class="src">Project Site</span> <span>Encore Site</span></h2>
+            </div>
+            <ul class="panelscroll mappinglist">            
             </HeaderTemplate>
             <ItemTemplate>
-                <div class="dataentryrow clearfix">
-                    <asp:HiddenField runat="server" ID="hdnID" Value='<%#Eval("ID") %>'/>
-                    <asp:HiddenField runat="server" ID="hdnValue" Value='<%#Eval("SITEID") %>'/>
-                    <span class="sourcefield"><%#Eval("NAME") %></span>
-                    <encore:Select ID="ddlEncoreSite" BlankFirstRow="true" runat="server" DataTextField="NAME" DataValueField="ID"  />
-                    <a href="addsite.aspx?name=<%#Eval("NAME") %>" class="button search lightbox">Add New</a>
-                </div>
+                <li id="<%#Eval("ID") %>" map="<%#Eval("SITEID") %>">
+                    <span class="src"><%#Eval("NAME") %></span><span class="map"></span>
+                </li>
             </ItemTemplate>
             <FooterTemplate>
-                </div>
+                </ul>
             </FooterTemplate>
         </asp:Repeater>
         <div class="buttonrow" >
             <asp:Button ID="btnSync" runat="server" CssClass="button search" 
                 Text="Synchronise" onclick="btnSync_Click" />
         </div>
-    </div>
  </fieldset>
-    <encore:Buttons ID="btnFormButtons" runat="server" OnSave="btnSubmit_Click" />
-</asp:Content>
+ <encore:Buttons ID="btnFormButtons" runat="server" ShowCancel="true" ShowSave="false" ShowDelete="false" />
+    
+ <script type="text/javascript" src="../js/dictionary.js"></script>
+ <script type="text/javascript" language="javascript">
+     $(document).ready(function() {
+         EncoreDictionary.Init( <asp:Literal ID="fieldJSON" runat="server" /> , 'addsite.aspx');
+     }); 
+</script></asp:Content>

@@ -9,32 +9,32 @@
 <h1><asp:Literal ID="litTitle" runat="server" /></h1>
 <h2><asp:Literal ID="litProjectTitle" runat="server" /> </h2>
  <fieldset class="panel dataentry clearfix">
-     <h2 style="float:left; width:298px;"> Source Field</h2> <h2>Encore Field</h2>
-    
-     <div class="panelscroll">
-
-        <asp:Repeater ID="rptMatch" runat="server" OnItemDataBound="rptMatch_ItemDataBound">
-            <HeaderTemplate>
-                <div class="pagedcontent">
-            </HeaderTemplate>
-            <ItemTemplate>
-                <div class="dataentryrow clearfix">
-                   <asp:HiddenField runat="server" ID="hdnID" Value='<%#Eval("ID") %>'/>
-                    <asp:HiddenField runat="server" ID="hdnValue" Value='<%#Eval("FIELDID") %>'/>
-                    <span class="sourcefield"><%#Eval("NAME") %></span>
-                    <encore:Select ID="ddlEncoreField" BlankFirstRow="true" runat="server" DataTextField="NAME" DataValueField="ID"  />
-                    <a href="addfield.aspx?name=<%#Eval("NAME") %>" class="button search lightbox">Add New</a>
-                </div>
-            </ItemTemplate>
-            <FooterTemplate>
-                </div>
-            </FooterTemplate>
-        </asp:Repeater>
-        <div class="buttonrow" >
-            <asp:Button ID="btnSync" runat="server" CssClass="button search" 
-                Text="Synchronise" onclick="btnSync_Click" />
-        </div>
+    <asp:Repeater ID="rptMatch" runat="server">
+        <HeaderTemplate>
+            <div class="mappingheader">
+                <h2><span class="src">Source Field</span> <span>Encore Field</span></h2>
+            </div>
+            <ul class="panelscroll mappinglist">            
+        </HeaderTemplate>
+        <ItemTemplate>
+            <li id="<%#Eval("ID") %>" map="<%#Eval("FIELDID") %>">
+                <span title='<%# Eval("DESCRIPTION") %>' class="src"><%#Eval("NAME") %> (<%#Eval("UNIT") %>)</span><span class="map"></span>
+            </li>
+        </ItemTemplate>
+        <FooterTemplate>
+            </ul>
+        </FooterTemplate>
+    </asp:Repeater>
+    <div class="buttonrow">
+      <asp:Button ID="btnSync" runat="server" CssClass="button search" Text="Synchronise" onclick="btnSync_Click" />
     </div>
  </fieldset>
-    <encore:Buttons ID="btnFormButtons" runat="server" OnSave="btnSubmit_Click" />
+ <encore:Buttons ID="btnFormButtons" runat="server" ShowCancel="true" ShowSave="false" ShowDelete="false" />
+    
+ <script type="text/javascript" src="../js/dictionary.js"></script>
+ <script type="text/javascript" language="javascript">
+     $(document).ready(function() {
+         EncoreDictionary.Init( <asp:Literal ID="fieldJSON" runat="server" /> , 'addfield.aspx');
+     }); 
+</script>
 </asp:Content>

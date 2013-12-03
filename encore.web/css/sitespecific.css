@@ -132,9 +132,7 @@ ul#footernav li a:hover	{color:#333333;text-decoration:underline;}
 .panel
 {
     background:#fff;
-    -moz-border-radius: 10px;  
-    -khtml-border-radius: 10px;  
-    -webkit-border-radius: 10px; 
+    border-radius: 0 0 10px 10px;
     padding:16px;
     margin-bottom: 16px;
 }
@@ -213,9 +211,7 @@ label
 input.textfield,select.field, textarea.field, .sourcefield
 {
      font-size:1.6em;
-     -moz-border-radius: 5px;  
-    -khtml-border-radius: 5px;  
-    -webkit-border-radius: 5px; 
+     border-radius: 5px; 
     border:0px;
     padding:4px 4px;
 }
@@ -297,6 +293,50 @@ ul.droplistsource li:hover { background: #AED0EA; color: #333;}
 ul.droplisttarget { background: #fff;}	
 ul.droplisttarget li { background: #AED0EA;border: 1px solid #0076a3; color: #333;cursor: move;}
 ul.droplisttarget li:hover { background: #D7EBF9; color: #2779AA;}
+
+.mappingheader {     background: #fff;border-bottom: 2px solid #ddd;}
+.mappingheader h2 {margin: 0px; padding:6px}
+ul.mappinglist {  margin: 0;padding: 4px; background: #fff; border-radius:0 0 10px 10px;}
+ul.mappinglist li {
+    list-style: none;
+    padding: 2px;
+    border-bottom: 1px solid #ccc;
+    position: relative;
+}
+ul.mappinglist span, .mappingheader h2 span { display: table-cell;  padding: 4px;}
+ul.mappinglist li .src, .mappingheader .src { color: #666; border-right: 1px solid #ccc;}
+ul.mappinglist li .map { color: #333;font-weight: bold; }
+
+ul.mappinglist li:hover, ul.mappinglist li.editing {
+     background: #AED0EA;cursor: pointer;
+}
+ul.mappinglist li:hover .src, ul.mappinglist li.editing .src {
+     border-right: 1px solid #fff;color: #fff;
+}
+#content ul.mappinglist li a.button { color: #fff;}
+ul.mappinglist li ul.suggestions {
+    background: none repeat scroll 0 0 #FFFFFF;
+    border: 1px solid #999999;
+    box-shadow: 0 2px 5px #888888;
+    margin: 0;
+    padding: 0;
+    position: absolute;
+    width: 296px;
+    z-index: 999;
+    max-height: 200px;
+    overflow-y: scroll;
+}
+
+ul.mappinglist li ul.suggestions li {
+    padding: 8px;
+    font-size: 1.3em;
+}
+
+ul.mappinglist li ul.suggestions li a { display: block; }
+
+ul.mappinglist li ul.suggestions li:hover {
+   background: #f1f1f1;
+}
 
 /*****************************************************************************
 * Buttons
@@ -520,8 +560,7 @@ html ul.tabs li.active, html ul.tabs li.active a:hover  { /*--Makes sure that th
 }
 .tab_container {
 	overflow: hidden;
-	clear: both;
-	float: left; width: 100%;
+	width: 100%;
 }
 .tab_content {
 

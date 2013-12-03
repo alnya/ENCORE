@@ -13,6 +13,7 @@
     <RootNamespace>encore.web</RootNamespace>
     <AssemblyName>encore.web</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <UseIISExpress>false</UseIISExpress>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -51,6 +52,7 @@
     <Reference Include="System.Web.ApplicationServices" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Old_App_Code\EncoreSecurity.cs" />
     <Compile Include="controls\Breadcrumb.ascx.designer.cs">
       <DependentUpon>Breadcrumb.ascx</DependentUpon>
     </Compile>
@@ -341,6 +343,20 @@
     <Compile Include="report\viewreport.aspx.designer.cs">
       <DependentUpon>viewreport.aspx</DependentUpon>
     </Compile>
+    <Compile Include="site\contactdata.aspx.cs">
+      <DependentUpon>contactdata.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="site\contactdata.aspx.designer.cs">
+      <DependentUpon>contactdata.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="site\contact.aspx.cs">
+      <DependentUpon>contact.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="site\contact.aspx.designer.cs">
+      <DependentUpon>contact.aspx</DependentUpon>
+    </Compile>
     <Compile Include="site\default.aspx.cs">
       <DependentUpon>default.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -429,6 +445,7 @@
   <ItemGroup>
     <Content Include="controls\GraphControl.ascx" />
     <Content Include="graphs\ZoomLine.swf" />
+    <Content Include="js\dictionary.js" />
     <Content Include="js\FusionCharts.js" />
     <Content Include="js\FusionChartsExportComponent.js" />
     <Content Include="js\jquery.pager.js" />
@@ -441,6 +458,8 @@
     <Content Include="report\graphxml.aspx" />
     <Content Include="report\reportdata.aspx" />
     <Content Include="report\reportfields.aspx" />
+    <Content Include="site\contactdata.aspx" />
+    <Content Include="site\contact.aspx" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>

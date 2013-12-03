@@ -33,9 +33,9 @@ namespace com.Encore.jControls
 
         protected override void RenderContents(HtmlTextWriter writer)
         {
-            RegisterScript();
+            RegisterScript(writer);
 
-            writer.AddAttribute(HtmlTextWriterAttribute.Id, this.ID);
+            writer.AddAttribute(HtmlTextWriterAttribute.Id, this.ID + "table");
             writer.AddAttribute(HtmlTextWriterAttribute.Class, "flexme");
             writer.AddAttribute(HtmlTextWriterAttribute.Style, "display: none");
             writer.RenderBeginTag(HtmlTextWriterTag.Table);
@@ -44,12 +44,12 @@ namespace com.Encore.jControls
             base.RenderContents(writer);
         }
 
-        private void RegisterScript()
+        private void RegisterScript(HtmlTextWriter writer)
         {
             // build Jquery table
             var js = new StringBuilder();
 
-            js.Append("<script>$('#" + this.ID + "').flexigrid({");
+            js.Append("$(document).ready(function () {$('#" + this.ID + "table').flexigrid({");
             js.Append("url: '");
             js.Append(DataURL);
             js.Append("',");
@@ -107,10 +107,14 @@ namespace com.Encore.jControls
             if (!string.IsNullOrEmpty(RowClickURL))
             {
                 js.Append("$('#" + this.ID +
-                          "').click(function(event){$('.trSelected', this).each( function(){ location.href='" + RowClickURL + "?ID=' + $(this).attr('id').substr(3);});});");
+                          "table').click(function(event){$('.trSelected', this).each( function(){ location.href='" + RowClickURL + "?ID=' + $(this).attr('id').substr(3);});});");
             }
-            js.Append("</script>");
-            this.Page.RegisterStartupScript("flexgrid", js.ToString());
+            js.Append("});");
+
+            writer.AddAttribute("language", "javascript");
+            writer.RenderBeginTag(HtmlTextWriterTag.Script);
+            writer.Write(js.ToString());
+            writer.RenderEndTag();
         }
     }
 

@@ -12,20 +12,29 @@ public partial class site_detail : BasePage
 {
     protected void Page_Load(object sender, EventArgs e)
     {
+        BindData();
+
         if (!IsPostBack)
         {
             CopyToForm();
         }
     }
 
-    private void CopyToForm()
+    private void BindData()
     {
-        // load record
+         // load record
         using (var ctx = new Entities())
         {
             var types = ctx.SITETYPEs;
             ddlSiteType.DataSource = types;
+        }
+    }
 
+    private void CopyToForm()
+    {
+
+        using (var ctx = new Entities())
+        {
             if (Request["ID"] != null)
             {
                 var id = -1;
@@ -39,6 +48,8 @@ public partial class site_detail : BasePage
 
                 if (site != null)
                 {
+                    ContactsList.DataURL += "?siteid=" + id;
+
                     btnFormButtons.EntityID = id;
                     txtSitename.Text = site.NAME;
                     txtDescription.Text = site.DESCRIPTION;
@@ -46,6 +57,10 @@ public partial class site_detail : BasePage
                     txtLongitude.Text = site.LONGITUDE.ToString();
                     btnFormButtons.ShowDelete = false;
                 }
+            }
+            else
+            {
+                tab3.Visible = false;
             }
         }
     }
@@ -62,6 +77,7 @@ public partial class site_detail : BasePage
         entity.ELEVATION = txtElevation.Text;
         entity.COUNTRY = txtCountry.Text;
         entity.SITETYPEID = short.Parse(ddlSiteType.Value);
+
     }
 
     private bool CopyFromForm()
@@ -103,6 +119,11 @@ public partial class site_detail : BasePage
             }
         }
         return false;
+    }
+
+    protected void btnNewContact_Click(object sender, EventArgs e)
+    {
+        Response.Redirect("contact.aspx?siteid=" + btnFormButtons.EntityID);
     }
 
     protected void btnSubmit_Click(object sender, EventArgs e)

@@ -30,13 +30,8 @@ public partial class master_global : System.Web.UI.MasterPage
     /// </summary>
     public SYSTEMUSER LoggedInUser
     {
-        get
-        {
-            if (HttpContext.Current.Session["user"] != null)
-                return (SYSTEMUSER)HttpContext.Current.Session["user"];
-            return null;
-        }
-        set { HttpContext.Current.Session["user"] = value; }
+        get { return EncoreSecurity.LoggedInUser; }
+        set { EncoreSecurity.LoggedInUser = value; }
     }
 
     /////////////////////////////////////////////////////////////////
@@ -136,7 +131,7 @@ public partial class master_global : System.Web.UI.MasterPage
             refererPath += "&ID=" + Request["ID"];
         }
 
-        //if (ThisPage != null && !ThisPage.IsAuthorized())
-        //    Response.Redirect("~/default.aspx?path=" + refererPath);
+        if (ThisPage != null && !ThisPage.IsAuthorized(this.LoggedInUser))
+            Response.Redirect("~/default.aspx?path=" + refererPath);
     }
 }

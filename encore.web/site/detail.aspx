@@ -4,6 +4,7 @@
 <%@ Register src="~/controls/FormButtons.ascx" tagPrefix="encore" tagName="Buttons" %>
 
 <%@ Register Assembly="com.Encore.jControls" TagPrefix="jquery" Namespace="com.Encore.jControls"%>
+<%@ Register TagPrefix="encore" Namespace="com.Encore.jControls" Assembly="com.Encore.jControls" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
     <jquery:jTabView runat="server" ID="tvTabs">
@@ -40,7 +41,15 @@
             </jquery:jTab>
             <jquery:jTab ID="tab3" runat="server" Title="Contacts">
                 <fieldset class="panel dataentry">
-                     
+                    <div class="buttonrow">
+                        <asp:Button ID="btnNewAccount" CausesValidation="false" runat="server" 
+                            CssClass="button save" Text="Add contact" onclick="btnNewContact_Click" />
+                    </div>
+                     <encore:jGrid ID="ContactsList" runat="server" Width="600" Height="200" Title="Site Contacts" DataURL="contactdata.aspx" RowClickURL="contact.aspx">
+                        <Columns>
+                            <encore:jGridColumn Title="Name" Width="570" ColumnName="Name" Sortable="true" Searchable="true" />
+                        </Columns>
+                    </encore:jGrid>
                 </fieldset>
             </jquery:jTab>
         </Tabs>

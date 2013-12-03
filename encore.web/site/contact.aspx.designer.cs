@@ -9,43 +9,43 @@
 
 
 
-public partial class project_fields {
+public partial class site_contact {
     
     /// <summary>
-    /// litTitle control.
+    /// txtEmailAddress control.
     /// </summary>
     /// <remarks>
     /// Auto-generated field.
     /// To modify move field declaration from designer file to code-behind file.
     /// </remarks>
-    protected global::System.Web.UI.WebControls.Literal litTitle;
+    protected global::Controls_TextboxControl txtEmailAddress;
     
     /// <summary>
-    /// litProjectTitle control.
+    /// txtName control.
     /// </summary>
     /// <remarks>
     /// Auto-generated field.
     /// To modify move field declaration from designer file to code-behind file.
     /// </remarks>
-    protected global::System.Web.UI.WebControls.Literal litProjectTitle;
+    protected global::Controls_TextboxControl txtName;
     
     /// <summary>
-    /// rptMatch control.
+    /// txtPhone control.
     /// </summary>
     /// <remarks>
     /// Auto-generated field.
     /// To modify move field declaration from designer file to code-behind file.
     /// </remarks>
-    protected global::System.Web.UI.WebControls.Repeater rptMatch;
+    protected global::Controls_TextboxControl txtPhone;
     
     /// <summary>
-    /// btnSync control.
+    /// hdnSiteId control.
     /// </summary>
     /// <remarks>
     /// Auto-generated field.
     /// To modify move field declaration from designer file to code-behind file.
     /// </remarks>
-    protected global::System.Web.UI.WebControls.Button btnSync;
+    protected global::System.Web.UI.WebControls.HiddenField hdnSiteId;
     
     /// <summary>
     /// btnFormButtons control.
@@ -55,25 +55,4 @@ public partial class project_fields {
     /// To modify move field declaration from designer file to code-behind file.
     /// </remarks>
     protected global::controls_FormButtons btnFormButtons;
-    
-    /// <summary>
-    /// fieldJSON control.
-    /// </summary>
-    /// <remarks>
-    /// Auto-generated field.
-    /// To modify move field declaration from designer file to code-behind file.
-    /// </remarks>
-    protected global::System.Web.UI.WebControls.Literal fieldJSON;
-    
-    /// <summary>
-    /// Master property.
-    /// </summary>
-    /// <remarks>
-    /// Auto-generated property.
-    /// </remarks>
-    public new master_global Master {
-        get {
-            return ((master_global)(base.Master));
-        }
-    }
 }

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-
+using System.Web.Script.Serialization;
 using System.Web.UI.WebControls;
 using Encore.TaskManager;
 using EntityFramework;
@@ -18,20 +18,6 @@ public partial class project_sites : BasePage
                 litTitle.Text = Master.ThisPage.Title;
             }
             BindData();
-        }
-    }
-
-    private List<SITE> m_sites;
-
-    protected void rptMatch_ItemDataBound(object sender, RepeaterItemEventArgs e)
-    {
-        var select = (Controls_SelectControl)e.Item.FindControl("ddlEncoreSite");
-        if (select != null)
-        {
-            select.DataSource = m_sites;
-
-            var hdnID = (HiddenField) e.Item.FindControl("hdnValue");
-            select.Value = hdnID.Value;
         }
     }
 
@@ -65,7 +51,10 @@ public partial class project_sites : BasePage
 
             litProjectTitle.Text = report.NAME;
 
-            m_sites = ctx.SITEs.Where(s => s.DELETED == 0).OrderBy(s => s.NAME).ToList();
+            var sites = ctx.SITEs.OrderBy(f => f.NAME).ToList();
+            var jsonSerialiser = new JavaScriptSerializer();
+            var json = jsonSerialiser.Serialize(sites.Select(f => new { ID = f.ID, Name = f.NAME }));
+            fieldJSON.Text = json;
 
             var q = from s in ctx.PROJECTSITEs
                     where s.DELETED == 0 && s.PROJECTID == id
@@ -77,44 +66,28 @@ public partial class project_sites : BasePage
         }
     }
 
-    private bool CopyFromForm()
+    [System.Web.Services.WebMethod]
+    public static bool SaveField(string fieldId, string encoreId)
     {
         using (var ctx = new Entities())
         {
-            foreach (RepeaterItem item in rptMatch.Items)
+            var iSiteId = int.Parse(fieldId);
+            // load field
+            var field = ctx.PROJECTSITEs.FirstOrDefault(u => u.ID == iSiteId);
+            if (field != null)
             {
-                var select = (Controls_SelectControl) item.FindControl("ddlEncoreSite");
-                var id = short.Parse(((HiddenField)item.FindControl("hdnID")).Value);
-                var value = (HiddenField) item.FindControl("hdnValue");
-                if (select.Value != value.Value)
+                if (!string.IsNullOrEmpty(encoreId))
                 {
-
-                    var datasource = ctx.PROJECTSITEs.FirstOrDefault(s => s.ID == id);
-                    if (!string.IsNullOrEmpty(select.Value))
-                    {
-                        datasource.SITEID = short.Parse(select.Value);
-                    }
-                    else
-                    {
-                        datasource.SITEID = null;
-                    }
+                    field.SITEID = Int16.Parse(encoreId);
                 }
+                else
+                {
+                    field.SITEID = null;
+                }
+                ctx.SaveChanges();
             }
-
-            ctx.SaveChanges();
         }
         return true;
-    }
-
-    protected void btnSubmit_Click(object sender, EventArgs e)
-    {
-        if (Page.IsValid)
-        {
-            if (CopyFromForm())
-            {
-                Response.Redirect("detail.aspx?saved=t&id=" + btnFormButtons.EntityID);
-            }
-        }
     }
 
     protected void btnSync_Click(object sender, EventArgs e)

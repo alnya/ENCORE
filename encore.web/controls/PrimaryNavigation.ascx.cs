@@ -65,7 +65,7 @@ public partial class controls_PrimaryNavigation : System.Web.UI.UserControl
         {
             foreach (NavigationPage page in Pages)
             {
-                if (page.Visible && page.IsAuthorized())
+                if (page.Visible && page.IsAuthorized(EncoreSecurity.LoggedInUser))
                 {
                     var sb = new StringBuilder();
                     sb.Append("<li");
@@ -98,7 +98,7 @@ public partial class controls_PrimaryNavigation : System.Web.UI.UserControl
         foreach (var page in list)
         {
             if (page.Visible &&
-                page.IsAuthorized() && 
+                page.IsAuthorized(EncoreSecurity.LoggedInUser) && 
                 page.Subnav != string.Empty)
             {
                 sb.Append("<li");

@@ -1,9 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
-using System.Web.UI;
-using System.Web.UI.WebControls;
+using System.Web.Script.Serialization;
 using Encore.TaskManager;
 using EntityFramework;
 using com.Encore.Web;
@@ -22,20 +20,6 @@ public partial class project_fields : BasePage
         }
     }
 
-    private List<FIELD> m_fields;
-
-    protected void rptMatch_ItemDataBound(object sender, RepeaterItemEventArgs e)
-    {
-        var select = (Controls_SelectControl)e.Item.FindControl("ddlEncoreField");
-        if (select != null)
-        {
-            select.DataSource = m_fields;
-
-            var hdnID = (HiddenField)e.Item.FindControl("hdnValue");
-            select.Value = hdnID.Value;
-        }
-    }
-
     private void BindData()
     {
         var id = -1;
@@ -46,7 +30,6 @@ public partial class project_fields : BasePage
                 ShowMessage(MessageType.Error, "There was an error loading this record");
                 return;
             }
-            btnFormButtons.EntityID = id;
         }
         else
         {
@@ -66,7 +49,10 @@ public partial class project_fields : BasePage
 
             litProjectTitle.Text = report.NAME;
 
-            m_fields = ctx.FIELDs.OrderBy(f => f.NAME).ToList();
+            var fields = ctx.FIELDs.OrderBy(f => f.NAME).ToList();
+            var jsonSerialiser = new JavaScriptSerializer();
+            var json = jsonSerialiser.Serialize(fields.Select(f => new {ID = f.ID, Name = f.NAME}));
+            fieldJSON.Text = json;
 
             var q = from s in ctx.PROJECTFIELDs
                     where s.DELETED == 0 && s.PROJECTID == id
@@ -78,49 +64,33 @@ public partial class project_fields : BasePage
         }
     }
 
-    private bool CopyFromForm()
+    [System.Web.Services.WebMethod]
+    public static bool SaveField(string fieldId, string encoreId)
     {
         using (var ctx = new Entities())
         {
-            foreach (RepeaterItem item in rptMatch.Items)
+            var iFieldId = int.Parse(fieldId);
+            // load field
+            var field = ctx.PROJECTFIELDs.FirstOrDefault(u => u.ID == iFieldId);
+            if (field != null)
             {
-                var select = (Controls_SelectControl)item.FindControl("ddlEncoreField");
-                var id = short.Parse(((HiddenField)item.FindControl("hdnID")).Value);
-                var value = (HiddenField)item.FindControl("hdnValue");
-                if (select.Value != value.Value)
+                if (!string.IsNullOrEmpty(encoreId))
                 {
-
-                    var datasource = ctx.PROJECTFIELDs.FirstOrDefault(f => f.ID == id);
-                    if (!string.IsNullOrEmpty(select.Value))
-                    {
-                        datasource.FIELDID = short.Parse(select.Value);
-                    }
-                    else
-                    {
-                        datasource.FIELDID = null;
-                    }
+                    field.FIELDID = Int16.Parse(encoreId);
                 }
+                else
+                {
+                    field.FIELDID = null;
+                }
+                ctx.SaveChanges();
             }
-
-            ctx.SaveChanges();
         }
         return true;
     }
 
-    protected void btnSubmit_Click(object sender, EventArgs e)
-    {
-        if (Page.IsValid)
-        {
-            if (CopyFromForm())
-            {
-                Response.Redirect("detail.aspx?saved=t&id=" + btnFormButtons.EntityID);
-            }
-        }
-    }
-
     protected void btnSync_Click(object sender, EventArgs e)
     {
-        TaskManager task = new TaskManager();
-        task.SyncProjectFields(btnFormButtons.EntityID.Value);
+        //var task = new TaskManager();
+        //task.SyncProjectFields(btnFormButtons.EntityID.Value);
     }
 }

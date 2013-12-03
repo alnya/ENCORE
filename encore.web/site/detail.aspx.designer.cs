@@ -120,6 +120,24 @@ public partial class site_detail {
     protected global::com.Encore.jControls.jTab tab3;
     
     /// <summary>
+    /// btnNewAccount control.
+    /// </summary>
+    /// <remarks>
+    /// Auto-generated field.
+    /// To modify move field declaration from designer file to code-behind file.
+    /// </remarks>
+    protected global::System.Web.UI.WebControls.Button btnNewAccount;
+    
+    /// <summary>
+    /// ContactsList control.
+    /// </summary>
+    /// <remarks>
+    /// Auto-generated field.
+    /// To modify move field declaration from designer file to code-behind file.
+    /// </remarks>
+    protected global::com.Encore.jControls.jGrid ContactsList;
+    
+    /// <summary>
     /// btnFormButtons control.
     /// </summary>
     /// <remarks>

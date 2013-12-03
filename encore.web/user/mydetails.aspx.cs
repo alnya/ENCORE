@@ -31,6 +31,10 @@ public partial class user_mydetails : BasePage
             txtPassword.Text = string.Empty;
             txtOrganisation.Text = user.ORGANISATION;
             txtAreaOfResearch.Text = user.AREAOFRESEARCH;
+            txtURL.Text = user.URL;
+            txtTwitter.Text = user.TWITTER;
+            txtFacebook.Text = user.FACEBOOK;
+            txtLinkedIn.Text = user.LINKEDIN;
         }
     }
 
@@ -94,7 +98,7 @@ public partial class user_mydetails : BasePage
         {
             if (CopyFromForm())
             {
-                Response.Redirect("default.aspx?saved=t");
+                Response.Redirect("mydetails.aspx?saved=t");
             }
         }
     }

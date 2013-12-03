@@ -24,13 +24,8 @@ namespace com.Encore.Web
         /// </summary>
         public SYSTEMUSER LoggedInUser
         {
-            get
-            {
-                if (HttpContext.Current.Session["user"] != null)
-                    return (SYSTEMUSER) HttpContext.Current.Session["user"];
-                return null;
-            }
-            set { HttpContext.Current.Session["user"] = value; }
+            get { return EncoreSecurity.LoggedInUser; }
+            set { EncoreSecurity.LoggedInUser = value; }
         }
 
         #region Messages

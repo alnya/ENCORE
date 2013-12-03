@@ -65,6 +65,18 @@ namespace com.Encore.jControls
         }
         #endregion
 
+        protected override void OnInit(EventArgs e)
+        {
+            foreach (var tab in Tabs.Where(tab => tab.Visible))
+            {
+                // hide the tab
+                tab.CssClass = "tab_content clearfix";
+                this.Controls.Add(tab);
+            }
+
+            base.OnInit(e);
+        }
+
         #region Render
         ////////////////////////////////////////////////////////////////////////////////
         /// <summary>
@@ -84,59 +96,47 @@ namespace com.Encore.jControls
         /// Handle the Render event and write the controls  
         /// </summary>
         ////////////////////////////////////////////////////////////////////////////////
-        protected override void  OnInit(EventArgs e)
+        protected override void Render(HtmlTextWriter writer)
         {
-            var lit = new Literal();
-            var container = new Panel {CssClass = "tab_container"};
-            this.Controls.Add(container);
+            writer.AddAttribute(HtmlTextWriterAttribute.Class, "tab_container clearfix");
+            writer.RenderBeginTag(HtmlTextWriterTag.Div);
 
-            // A workaround before finding a solution
-            var hidden = new HiddenField {ID = UniqueID, Value = string.Empty};
-            this.Controls.Add(hidden);
-
-            var sb = new StringBuilder();
+            writer.AddAttribute(HtmlTextWriterAttribute.Id, UniqueID);
+            writer.AddAttribute(HtmlTextWriterAttribute.Type, "hidden");
+            writer.AddAttribute(HtmlTextWriterAttribute.Name, UniqueID);
+            writer.AddAttribute(HtmlTextWriterAttribute.Value, string.Empty);
+            writer.RenderBeginTag(HtmlTextWriterTag.Input);
+            writer.RenderEndTag();
 
             if (Tabs != null && Tabs.Count > 0)
             {
-                sb.Append(@"<ul id='");
-                sb.Append(this.ClientID);
-                sb.Append("tabstrip' class='tabs'><input type='hidden' name='");
-                sb.Append(this.ClientID);
-                sb.Append(@"_Valu' value='");
-                sb.Append(SelectedTab);
-                sb.Append(@"' />");
+                writer.AddAttribute(HtmlTextWriterAttribute.Id, this.ClientID + "tabstrip");
+                writer.AddAttribute(HtmlTextWriterAttribute.Class, "tabs clearfix");
+                writer.RenderBeginTag(HtmlTextWriterTag.Ul);
+
+                writer.AddAttribute(HtmlTextWriterAttribute.Id, ClientID + "_Valu");
+                writer.AddAttribute(HtmlTextWriterAttribute.Type, "hidden");
+                writer.AddAttribute(HtmlTextWriterAttribute.Name, ClientID + "_Valu");
+                writer.AddAttribute(HtmlTextWriterAttribute.Value, SelectedTab);
+                writer.RenderBeginTag(HtmlTextWriterTag.Input);
+                writer.RenderEndTag();
 
                 var tabCnt = 0;
 
-                foreach (var tab in Tabs)
+                foreach (var tab in Tabs.Where(tab => tab.Visible))
                 {
-                    if (tab.Visible)
-                    {
-                        container.Controls.Add(tab);
+                    var selected = (SelectedTab == tab.ID || SelectedTab == tab.ClientID ||
+                                    (SelectedTab == string.Empty && tabCnt == 0));
 
-                        // hide the tab
-                        tab.CssClass = "tab_content";
-                        if (SelectedTab == tab.ID || SelectedTab == tab.ClientID ||
-                        (SelectedTab == string.Empty && tabCnt == 0))
-                        {
-                            //tab.CssClass = "active";
-                            sb.Append(BuildLink(tab,true));
-                        }
-                        else
-                            sb.Append(BuildLink(tab,false));
-
-                        tabCnt++;
-                        
-                    }
+                    BuildLink(tab, selected, writer);
+                    tabCnt++;
                 }
 
-                sb.Append("</ul>");
+                writer.RenderEndTag();
             }
+            writer.RenderEndTag();
 
-            lit.Text = sb.ToString();
-            this.Controls.AddAt(0, lit);
-
-            base.OnInit(e);
+            base.RenderContents(writer);
         }  
         #endregion
 
@@ -146,24 +146,19 @@ namespace com.Encore.jControls
         /// Build the link for this page
         /// </summary>
         ////////////////////////////////////////////////////////////////////////////////
-        private string BuildLink(jTab tab, bool selected)
+        private void BuildLink(jTab tab, bool selected, HtmlTextWriter writer)
         {
-            var sb = new StringBuilder();
+            writer.AddAttribute(HtmlTextWriterAttribute.Class, selected ? "active" : string.Empty);
+            writer.RenderBeginTag(HtmlTextWriterTag.Li);
 
-            sb.Append(@"<li class='");
-            if (selected) sb.Append("active");
-            sb.Append("'>");
-
-            sb.Append("<a href='#");
-            sb.Append(tab.ClientID);
-            sb.Append("' title='Show this tab'>");
-            sb.Append(tab.Title);
-            sb.Append("</a>");
-
-            return sb.ToString();
+            writer.AddAttribute(HtmlTextWriterAttribute.Title, "Show this tab");
+            writer.AddAttribute(HtmlTextWriterAttribute.Href, "#" + tab.ClientID);
+            writer.RenderBeginTag(HtmlTextWriterTag.A);
+            writer.Write(tab.Title);
+            writer.RenderEndTag();
+            writer.RenderEndTag();
         }
 
-        
         #endregion
 
         #region IPostBackDataHandler Members

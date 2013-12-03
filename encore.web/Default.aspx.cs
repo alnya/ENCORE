@@ -15,7 +15,8 @@ public partial class _Default : BasePage
         txtUsername.Focus();
         if (Request["logout"] != null)
         {
-            LoggedInUser = null;
+            var security = new EncoreSecurity();
+            security.Logout();
             Response.Redirect("Default.aspx?loggedout=y");
         }
         if (Request["loggedout"]!= null)
@@ -39,41 +40,8 @@ public partial class _Default : BasePage
     /// <returns></returns>
     private bool Login()
     {
-        using (var ctx = new Entities())
-        {
-            try
-            {
-                // todo: encrypt password
-                
-                var user =
-                    ctx.SYSTEMUSERs.FirstOrDefault(
-                        u => u.DELETED == 0 && u.EMAIL == txtUsername.Text & u.PASSWORD == txtPassword.Text);
-
-                if (user != null)
-                {
-                    // update
-                    user.LASTLOGGEDON = DateTime.Now;
-
-                    // audit
-                    Audit.Log(ctx, AuditType.Login, this.Page.GetType().FullName, user.ID);
-
-                    ctx.SaveChanges();
-
-                    // save to session
-                    LoggedInUser = user;
-
-                    // done
-                    return true;
-                }
-            }
-            catch(Exception ex)
-            {
-                ExceptionLog.WriteException("User Login",ex);
-                ShowExceptionMessage();
-            }
-
-            return false;
-        }
+        var security = new EncoreSecurity();
+        return security.Login(txtUsername.Text.Trim(), txtPassword.Text.Trim());
     }
 
     protected void btnSubmit_Click(object sender, EventArgs e)

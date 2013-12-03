@@ -317,20 +317,19 @@ namespace com.Encore.Web
         /// Is the page the page authorized
         /// </summary>
         /////////////////////////////////////////////////////////////////
-        public bool IsAuthorized()
+        public bool IsAuthorized(SYSTEMUSER systemUser)
         {
             // no roles for this page - no need to authenticate
             if (this.Roles.Count == 0)
                 return true;
 
              // user is logged in, and page has * role
-            if (HttpContext.Current.Session["user"] != null && (this.Roles.Count == 1) && this.Roles[0] == "*")
+            if (systemUser != null && (this.Roles.Count == 1) && this.Roles[0] == "*")
                 return true;
 
             // check if user has specific role
-            if (roles != null && HttpContext.Current.Session["user"] != null)
+            if (roles != null && systemUser != null)
             {
-                var systemUser = (SYSTEMUSER)HttpContext.Current.Session["user"];
                 if (systemUser.ADMINISTRATOR == 1)
                     return true;
             }

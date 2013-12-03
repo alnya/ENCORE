@@ -46,6 +46,11 @@ public partial class user_detail : BasePage
                     txtOrganisation.Text = user.ORGANISATION;
                     txtAreaOfResearch.Text = user.AREAOFRESEARCH;
                     ddlAdministrator.Value = user.ADMINISTRATOR == 1 ? "Yes" : "No";
+                    txtURL.Text = user.URL;
+                    txtTwitter.Text = user.TWITTER;
+                    txtFacebook.Text = user.FACEBOOK;
+                    txtLinkedIn.Text = user.LINKEDIN;
+
                     btnFormButtons.ShowDelete = true;
                 }
             }

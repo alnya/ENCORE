@@ -57,6 +57,15 @@ public partial class project_sites {
     protected global::controls_FormButtons btnFormButtons;
     
     /// <summary>
+    /// fieldJSON control.
+    /// </summary>
+    /// <remarks>
+    /// Auto-generated field.
+    /// To modify move field declaration from designer file to code-behind file.
+    /// </remarks>
+    protected global::System.Web.UI.WebControls.Literal fieldJSON;
+    
+    /// <summary>
     /// Master property.
     /// </summary>
     /// <remarks>

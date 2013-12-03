@@ -39,7 +39,7 @@
             <div id="footer" class="clearfix">
                 <div class="container">
                     <div class="column leftcol">
-                        <span class="disclaimer">© 2011 ENCORE</span>
+                        <span class="disclaimer">© <%=DateTime.Now.Year %> ENCORE</span>
                     </div>
                     <div class="column rightcol">
                         <ul id="footernav">

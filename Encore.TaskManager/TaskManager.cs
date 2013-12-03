@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Configuration;
+using System.IO;
 using System.Linq;
+using System.Text;
 using Encore.DataStore.DataObjects;
 using Encore.WebServices;
 using EntityFramework;
@@ -255,22 +257,34 @@ namespace Encore.TaskManager
 
                                 data_store.Store(data_rows);
 
-                                 using (var entities = new Entities())
-                                 {
-                                     var this_task = entities.REPORTPROJECTREQUESTs.FirstOrDefault(r => r.ID == task_id);
-                                     this_task.STATUS = RequestStatus.Complete.ToString();
-                                     entities.SaveChanges();
+                                using (var entities = new Entities())
+                                {
+                                    var this_task = entities.REPORTPROJECTREQUESTs.FirstOrDefault(r => r.ID == task_id);
+                                    this_task.STATUS = RequestStatus.Complete.ToString();
 
-                                     // check tasks for report
-                                     var report_tasks = entities.REPORTPROJECTREQUESTs.Where(r => r.REPORTID == task.REPORTID).ToList();
+                                    // send email
+                                    var rpt = entities.REPORTs.FirstOrDefault(r => r.ID == task_id);
+                                    rpt.REQUESTSTATUS = RequestStatus.Complete.ToString();
 
-                                     if (report_tasks.All(r => r.STATUS == RequestStatus.Complete.ToString()))
-                                     {
-                                         var this_report = entities.REPORTs.FirstOrDefault(r => r.ID == this_task.REPORTID);
-                                         this_report.REQUESTSTATUS = RequestStatus.Complete.ToString();
-                                     }
-                                     entities.SaveChanges();
-                                 }
+                                    var owner = entities.SYSTEMUSERs.FirstOrDefault(s => s.ID == rpt.SYSTEMUSERID);
+                                    if (owner != null && !string.IsNullOrEmpty(owner.EMAIL))
+                                    {
+                                        // send email
+                                        SendReportCompelted(owner, report_id);
+                                    }
+                                   
+                                    // check tasks for report
+                                    var report_tasks =
+                                        entities.REPORTPROJECTREQUESTs.Where(r => r.REPORTID == task.REPORTID).ToList();
+
+                                    if (report_tasks.All(r => r.STATUS == RequestStatus.Complete.ToString()))
+                                    {
+                                        var this_report =
+                                            entities.REPORTs.FirstOrDefault(r => r.ID == this_task.REPORTID);
+                                        this_report.REQUESTSTATUS = RequestStatus.Complete.ToString();
+                                    }
+                                    entities.SaveChanges();
+                                }
                             },
                         null
                         );
@@ -285,7 +299,58 @@ namespace Encore.TaskManager
             }
         }
 
-        private void ProcessDataRequest(IAsyncResult result)
-        {}
+        #region Get Template
+        /////////////////////////////////////////////////////////////////
+        /// <summary>
+        /// Get Template
+        /// </summary>
+        /////////////////////////////////////////////////////////////////
+        private static string GetTemplate(string filename)
+        {
+            string template = string.Empty;
+
+            var fullPathToFile = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, filename);
+
+            if (File.Exists(fullPathToFile))
+            {
+                using (var sr = new StreamReader(fullPathToFile))
+                {
+                    template = sr.ReadToEnd();
+                }
+            }
+            else
+            {
+                Audit.Log(AuditType.TaskManager, "EmailCommands", string.Format("Could not load template {0}", fullPathToFile), 0);
+            }
+
+            return template;
+        }
+        #endregion
+
+        /////////////////////////////////////////////////////////////////
+        /// <summary>
+        /// Send email that report is complete
+        /// </summary>
+        /////////////////////////////////////////////////////////////////
+        public static void SendReportCompelted(SYSTEMUSER user,  int reportid)
+        {
+            var template = GetTemplate("template.txt");
+            var from = ConfigurationSettings.AppSettings["DefaultFrom"];
+            const string subject = "Report Completed";
+
+            // send message
+            if (template != string.Empty)
+            {                
+                var reportURL = string.Format("{0}/reports/result.aspx?ID={1}", ConfigurationSettings.AppSettings["WebURL"], reportid);
+
+                // replacement
+                template = template.Replace("[link]", reportURL);
+                template = template.Replace("[name]", user.NAME);
+            }
+
+            if (!string.IsNullOrEmpty(user.EMAIL))
+                Communication.SendEmail(from, user.EMAIL, subject, template);
+
+        }
     }
 }

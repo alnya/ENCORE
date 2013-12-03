@@ -5,7 +5,8 @@
         <ItemTemplate>
             <div class="panel dataentry reportpanel clearfix">
                 <h2><a href='detail.aspx?ID=<%#Eval("ID") %>'><%#Eval("Name") %></a></h2>
-                <em><%#DataBinder.Eval(Container.DataItem, "CREATEDON", "{0:dd MMM yyyy}")%></em>: <%#Eval("RequestStatus")%>
+                <em>Created: <%#DataBinder.Eval(Container.DataItem, "CREATEDON", "{0:dd MMM yyyy}")%></em>: <%#Eval("RequestStatus")%><br/>
+                <%#DataBinder.Eval(Container.DataItem, "REPORTDATEFROM", "{0:dd MMM yyyy}")%> to <%#DataBinder.Eval(Container.DataItem, "REPORTDATETO", "{0:dd MMM yyyy}")%>
                 <div class="reportactions">
                     <asp:Button ID="btnGetData" CssClass="button search" CommandArgument='<%#Eval("ID") %>' runat="server" Visible='<%# (Eval("RequestStatus").ToString()==Encore.TaskManager.RequestStatus.New.ToString()) ? true : false %>' Text="Request Data" OnClick="btnGetData_Click" />
                     <asp:HyperLink ID="lnkViewData" CssClass="action data" runat="server" Visible='<%# (Eval("RequestStatus").ToString()==Encore.TaskManager.RequestStatus.Complete.ToString()) ? true : false %>' NavigateURL='<%# "viewreport.aspx?ID=" + Eval("ID") %>' Text="View Data" />
